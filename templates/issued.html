@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DIAR - Issued Diploma</title>
+</head>
+<body>
+    <h1>Academic Diploma Issued</h1>
+
+    <p><strong>Diploma ID:</strong> {{ diploma_id }}</p>
+    <p><strong>Student:</strong> {{ record.student_name }}</p>
+    <p><strong>Course:</strong> {{ record.course }}</p>
+
+    <h3>PDF SHA-256</h3>
+    <code>{{ document_hash }}</code>
+    <p>Hash length: {{ document_hash | length }}</p>
+
+    <p><a href="{{ pdf_url }}">Download Diploma PDF</a></p>
+    <p>
+        <img src="{{ qr_url }}" width="160"
+             alt="Diploma verification QR code">
+    </p>
+
+    <hr>
+    <h2>Blockchain Registration</h2>
+    <p>Connect the authorized issuer's MetaMask wallet to Sepolia.</p>
+
+    <button id="registerDiploma"
+            data-diploma-id="{{ diploma_id }}"
+            data-document-hash="{{ document_hash }}">
+        Register Diploma on Blockchain
+    </button>
+
+    <p id="blockchainStatus" role="status" aria-live="polite"></p>
+
+    <p>
+        <a href="{{ url_for('verify', diploma_id=diploma_id) }}">
+            Verify This Diploma
+        </a>
+    </p>
+
+    <p><a href="/">Return to DIAR Home</a></p>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.15.0/ethers.umd.min.js"></script>
+    <script src="{{ url_for('static', filename='diar.js') }}"></script>
+</body>
+</html>
+
